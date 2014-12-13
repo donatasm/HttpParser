@@ -18,7 +18,12 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
  * IN THE SOFTWARE.
  */
-#define DllExport   __declspec(dllexport)
+
+#ifdef __GNUC__
+  #define DllExport __attribute__((visibility("default")))
+#else
+  #define DllExport __declspec(dllexport)
+#endif
 
 #ifndef http_parser_h
 #define http_parser_h
@@ -288,11 +293,13 @@ struct http_parser_url {
 DllExport
 unsigned long http_parser_version(void);
 
+DllExport
 void http_parser_init(http_parser *parser, enum http_parser_type type);
 
 
 /* Executes the parser. Returns number of parsed bytes. Sets
  * `parser->http_errno` on error. */
+DllExport
 size_t http_parser_execute(http_parser *parser,
                            const http_parser_settings *settings,
                            const char *data,
@@ -326,6 +333,14 @@ void http_parser_pause(http_parser *parser, int paused);
 
 /* Checks if this is the final chunk of the body. */
 int http_body_is_final(const http_parser *parser);
+
+/* Size of a parser struct */
+DllExport
+int http_parser_size();
+
+/* Last error message of a parser */
+DllExport
+const char* http_parser_err_message(const http_parser *parser);
 
 #ifdef __cplusplus
 }

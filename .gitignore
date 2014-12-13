@@ -30,3 +30,6 @@ _ReSharper*/
 packages
 *.sdf
 *.opensdf
+.DS_Store
+*.dylib
+

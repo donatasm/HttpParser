@@ -2408,3 +2408,13 @@ http_parser_version(void) {
          HTTP_PARSER_VERSION_MINOR * 0x00100 |
          HTTP_PARSER_VERSION_PATCH * 0x00001;
 }
+
+int
+http_parser_size() {
+  return sizeof(http_parser);
+}
+
+const char*
+http_parser_err_message(const http_parser *parser) {
+  return http_errno_description(parser->http_errno);
+}
