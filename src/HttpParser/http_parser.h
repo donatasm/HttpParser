@@ -312,6 +312,7 @@ size_t http_parser_execute(http_parser *parser,
  * If you are the server, respond with the "Connection: close" header.
  * If you are the client, close the connection.
  */
+DllExport
 int http_should_keep_alive(const http_parser *parser);
 
 /* Returns a string version of the HTTP method. */
